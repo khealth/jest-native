@@ -85,7 +85,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/testing-library/jest-native.git"
+    "url": "git+https://github.com/khealth/jest-native.git"
   },
   "author": "Brandon Carroll",
   "license": "MIT",
