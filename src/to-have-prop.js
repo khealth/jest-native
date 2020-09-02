@@ -18,8 +18,16 @@ export function toHaveProp(element, name, expectedValue) {
   const prop = element.props[name];
 
   const isDefined = expectedValue !== undefined;
+
+  // // offered fix, enable to make tests fail as expected
+  // const elementType = typeof element.type == 'string' ? element.type : element.type?.displayName;
+  // const isAllowed = VALID_ELEMENTS.includes(elementType);
+  // // --
+
+  // original code -> disable to use fix
   const isAllowed = VALID_ELEMENTS.includes(element.type);
   const hasProp = not(isNil(prop));
+  // --
 
   return {
     pass: isDefined && isAllowed ? hasProp && equals(prop, expectedValue) : hasProp,

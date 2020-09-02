@@ -2,8 +2,10 @@ import React from 'react';
 import { Button, Text, View } from 'react-native';
 import { render } from '@testing-library/react-native';
 
-test('.toHaveProp', () => {
-  const { queryByTestId } = render(
+// NOTICE -> both tests should fail, the checked prop value is incorrect
+
+test('.toHaveProp eg1', () => {
+  const { getByText } = render(
     <View>
       <Text allowFontScaling={false} testID="text">
         text
@@ -12,22 +14,18 @@ test('.toHaveProp', () => {
     </View>,
   );
 
-  expect(queryByTestId('button')).toHaveProp('disabled', true);
-  expect(queryByTestId('button')).toHaveProp('disabled');
-  expect(queryByTestId('button')).toHaveProp('title', 'ok');
+  expect(getByText('ok')).toHaveProp('disabled', 'nope');
+});
 
-  expect(queryByTestId('text')).toHaveProp('allowFontScaling', false);
-  expect(queryByTestId('text')).not.toHaveProp('style');
+test('.toHaveProp eg2', () => {
+  const { getByText } = render(
+    <View>
+      <Text allowFontScaling={false} testID="text">
+        text
+      </Text>
+      <Button disabled testID="button" title="ok" />
+    </View>,
+  );
 
-  expect(() =>
-    expect(queryByTestId('button')).toHaveProp('accessibilityStates', ['disabled']),
-  ).toThrowError();
-  expect(() => expect(queryByTestId('button')).toHaveProp('accessible')).toThrowError();
-  expect(() => expect(queryByTestId('button')).not.toHaveProp('disabled')).toThrowError();
-  expect(() => expect(queryByTestId('button')).not.toHaveProp('title', 'ok')).toThrowError();
-
-  expect(() =>
-    expect(queryByTestId('text')).not.toHaveProp('allowFontScaling', false),
-  ).toThrowError();
-  expect(() => expect(queryByTestId('text')).toHaveProp('style')).toThrowError();
+  expect(getByText('text')).toHaveProp('allowFontScaling', 'thats not the prop value at all');
 });
